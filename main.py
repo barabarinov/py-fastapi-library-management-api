@@ -33,7 +33,7 @@ def read_authors(skip: int = 0, limit: int = 100, db: Session = Depends(get_db))
 
 
 # Get a single author by ID
-@app.get("/authors/{author_id}", response_model=schemas.Author)
+@app.get("/authors/{author_id}/", response_model=schemas.Author)
 def read_author(author_id: int, db: Session = Depends(get_db)):
     db_author = crud.get_author(db, author_id=author_id)
     if db_author is None:
@@ -55,6 +55,6 @@ def read_books(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
 
 
 # Filter books by author ID
-@app.get("/books/author/{author_id}", response_model=list[schemas.Book])
+@app.get("/books/author/{author_id}/", response_model=list[schemas.Book])
 def read_books_by_author(author_id: int, db: Session = Depends(get_db)):
     return db.query(models.Book).filter(models.Book.author_id == author_id).all()
